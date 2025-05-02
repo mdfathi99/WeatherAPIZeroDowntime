@@ -24,7 +24,7 @@ services:
     environment:
       POSTGRES_DB: weather_db
       POSTGRES_USER: weather_user
-      POSTGRES_PASSWORD: *0y9h0n3y$sds
+      POSTGRES_PASSWORD: 0y9h0n3y$sds
 
 volumes:
   pgdata:

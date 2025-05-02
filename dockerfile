@@ -21,14 +21,13 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 COPY --chown=appuser:appuser . /app/
 
 
-COPY entrypoint.sh /entrypoint.sh
+COPY --chown=appuser:appuser entrypoint.sh /app/entrypoint.sh
 
-
-RUN chmod +x /entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
 
 USER appuser
 
-ENTRYPOINT ["/entrypoint.sh"]
+# ENTRYPOINT ["/app/entrypoint.sh"] #no longer needed 
 CMD ["gunicorn", "bs23apiproject.wsgi:application", "--bind", "0.0.0.0:8000"]
 
 ARG APP_VERSION

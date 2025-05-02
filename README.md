@@ -2,6 +2,9 @@
 
 A Django-based Weather API project built with CI/CD automation and Kubernetes infrastructure — ready for local development and scalable production deployments.
 
+- [Part A](#features)
+- [Part B](#part-b-e-commerce-architecture)
+
 ## Features
 
 - `/api/hello`: Returns server metadata, version, timestamp, and live weather data for Dhaka
@@ -53,6 +56,7 @@ docker-compose up --build
 ```
 App will be available at http://localhost:8000/ with swagger UI
 
+<img width="983" alt="image" src="https://github.com/user-attachments/assets/b3489ee0-0f8e-461b-b3d8-43946c365cf5" />
 
 
 ## Part 3: Version Control & CI/CD Pipeline [Asked in Part 3]

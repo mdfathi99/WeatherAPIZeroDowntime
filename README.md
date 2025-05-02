@@ -118,7 +118,7 @@ Image has been uploaded into dockerhub by github action
 
 ---
 
-### Part B (E-commerce Architecture)
+# Part B (E-commerce Architecture)
 
 ![diagram-export-5-2-2025-1_48_27-PM](https://github.com/user-attachments/assets/e438908a-8766-4280-83c0-d57119ca9ce4)
 

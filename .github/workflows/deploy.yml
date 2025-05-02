@@ -26,12 +26,15 @@ jobs:
 
     - name: Extract release version
       id: get_version
-      run: echo "VERSION=${GITHUB_REF##*/}" >> $GITHUB_ENV
+      run: |
+        VERSION=${GITHUB_REF##*/}
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+        echo "Extracted version: $VERSION"
 
     - name: Build and Push Docker Image
       run: |
-        docker build --build-arg APP_VERSION=${VERSION} -t $IMAGE_NAME:${VERSION} .
-        docker push $IMAGE_NAME:${VERSION}
+        docker build --build-arg APP_VERSION=$VERSION -t $IMAGE_NAME:$VERSION .
+        docker push $IMAGE_NAME:$VERSION
 
     - name: Deploy to Server via SSH
       uses: appleboy/ssh-action@master
@@ -40,8 +43,9 @@ jobs:
         username: ${{ secrets.SERVER_USER }}
         key: ${{ secrets.SERVER_SSH_KEY }}
         script: |
-          export APP_VERSION=${VERSION}
+          export APP_VERSION=$VERSION
           cd /home/ubuntu/weather-api
+          echo "APP_VERSION=$APP_VERSION" > .env
           docker-compose pull
           docker-compose up -d --no-deps --build web
           docker system prune -f
@@ -50,7 +54,10 @@ jobs:
       run: |
         sleep 10
         RESPONSE=$(curl -s http://${{ secrets.SERVER_HOST }}/api/hello | jq -r .version)
-        if [ "$RESPONSE" != "${VERSION}" ]; then
-          echo "Version mismatch! Expected: ${VERSION}, Got: $RESPONSE"
+        echo "API responded with version: $RESPONSE"
+        if [ "$RESPONSE" != "$VERSION" ]; then
+          echo "Version mismatch! Expected: $VERSION, Got: $RESPONSE"
           exit 1
+        else
+          echo "Version check passed."
         fi

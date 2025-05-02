@@ -32,4 +32,4 @@ ENTRYPOINT ["/entrypoint.sh"]
 CMD ["gunicorn", "bs23apiproject.wsgi:application", "--bind", "0.0.0.0:8000"]
 
 ARG APP_VERSION
-ENV APP_VERSION=${APP_VERSION}
+ENV APP_VERSION=$APP_VERSION
